@@ -15,6 +15,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { HomeComponent } from './components/pages/home/home.component';
 import { PageNotFoundComponent } from './components/pages/page-not-found/page-not-found.component';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { PageNotFoundComponent } from './components/pages/page-not-found/page-no
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [],
   bootstrap: [AppComponent]
