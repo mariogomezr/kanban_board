@@ -14,9 +14,14 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { HomeComponent } from './components/pages/home/home.component';
+import { SignupComponent } from './components/pages/signup/signup.component';
 import { PageNotFoundComponent } from './components/pages/page-not-found/page-not-found.component';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -25,7 +30,8 @@ import { environment } from '../environments/environment';
     LoginComponent,
     NavbarComponent,
     HomeComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +43,12 @@ import { environment } from '../environments/environment';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig)
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

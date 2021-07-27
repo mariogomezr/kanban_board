@@ -1,63 +1,54 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { User } from './user.model'; // optional
-import firebase from 'firebase/app';
+
 import { AngularFireAuth } from '@angular/fire/auth';
-import {
-  AngularFirestore,
-  AngularFirestoreDocument,
-} from '@angular/fire/firestore';
-import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  user$: Observable<User | null | undefined> ;
+  userLoggedIn: boolean; // other components can check on this variable for the login status of the user
 
-  constructor(
-    private afAuth: AngularFireAuth,
-    private afs: AngularFirestore,
-    private router: Router
-  ) {
-    this.user$ = this.afAuth.authState.pipe(
-      switchMap((user) => {
-        if (user) {
-          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
-        } else {
-          return of(null);
-        }
+  constructor(private router: Router, private afAuth: AngularFireAuth) {
+    this.userLoggedIn = false;
+
+    this.afAuth.onAuthStateChanged((user) => {
+      // set up a subscription to always know the login status of the user
+      if (user) {
+        this.userLoggedIn = true;
+      } else {
+        this.userLoggedIn = false;
+      }
+    });
+  }
+
+  loginUser(email: string, password: string): Promise<any> {
+    return this.afAuth
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        console.log('Auth Service: loginUser: success');
+         this.router.navigate(['/home']);
       })
-    );
+      .catch((error) => {
+        console.log('Auth Service: login error...');
+        console.log('error code', error.code);
+        console.log('error', error);
+        if (error.code) return { isValid: false, message: error.message };
+        return null;
+      });
   }
 
-  async googleSignIn(){
-    const provider = new firebase.auth.GoogleAuthProvider()
-    
-    console.log(provider);
-    const credentials = await firebase.auth().signInWithPopup(provider)
-    console.log(credentials);
-    return this.updateUserdata(credentials.user);
+  signupUser(user: any): Promise<any> {
+    return this.afAuth
+      .createUserWithEmailAndPassword(user.email, user.password)
+      .then((result) => {
+        let emailLower = user.email.toLowerCase();
+        result.user!.sendEmailVerification(); // immediately send the user a verification email
+      })
+      .catch((error) => {
+        console.log('Auth Service: signup error', error);
+        if (error.code) return { isValid: false, message: error.message };
+        return null;
+      });
   }
-
-  async signOut(){
-    await firebase.auth().signOut();
-    return this.router.navigate(['/'])
-  }
-
-  private updateUserdata(user: firebase.User | null){
-   if( user === null ) return console.log('error en el consumo');
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
-
-    const data = { 
-      uid: user.uid, 
-      email: user.email, 
-      displayName: user.displayName, 
-      photoURL: user.photoURL
-    } 
-
-    return userRef.set(data, { merge: true })
-  }
-
 }

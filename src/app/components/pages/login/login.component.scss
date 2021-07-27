@@ -7,15 +7,26 @@
   background-attachment: fixed;
   background-size: cover;
   position: relative;
-  .btn {
+  .form_container {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
     position: absolute;
     top: 55%;
     left: 8%;
-    background-color: #de1d3e;
+    
   }
   .btn:hover {
     background-color: white;
     border: solid #de1d3e 1px;
     color: #de1d3e;
+  }
+  .btn_container{
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
   }
 }

@@ -1,9 +1,42 @@
 <div class="login">
-
-  <button *ngIf="(auth.authState | async)"   mat-raised-button color="warn" class="btn" (click)="signOut()">
-    Logout
-  </button>
-  <button *ngIf="(auth.authState | async) === null" mat-raised-button color="warn" class="btn" (click)="signIn()">
-    Login with Google
-  </button>
+  <div class="form_container">
+    <form
+      class="form_container"
+      [formGroup]="loginForm"
+      (ngSubmit)="loginUser()"
+      type=""
+    >
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input
+            autocomplete="on"
+            formControlName="email"
+            type="email"
+            matInput
+            placeholder="Email"
+          />
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input
+            autocomplete="on"
+            formControlName="password"
+            type="password"
+            matInput
+            placeholder="Password"
+          />
+        </mat-form-field>
+      </p>
+      <div *ngIf="firebaseErrorMessage != ''" class="error-style">
+        <span>{{ firebaseErrorMessage }}</span>
+      </div>
+      <div class="btn_container">
+        <button mat-raised-button color="warn" (click)="redirectSignUp()"  >Sign Up</button>
+        <button mat-raised-button color="primary">Login</button>
+      </div>
+    </form>
+  </div>
 </div>
