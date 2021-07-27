@@ -1,0 +1,21 @@
+.login {
+  width: 100%;
+  height: 100%;
+  background-image: url(../../../../assets/kanban_board_bkground.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  position: relative;
+  .btn {
+    position: absolute;
+    top: 55%;
+    left: 8%;
+    background-color: #de1d3e;
+  }
+  .btn:hover {
+    background-color: white;
+    border: solid #de1d3e 1px;
+    color: #de1d3e;
+  }
+}
