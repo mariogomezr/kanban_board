@@ -37,7 +37,7 @@ import { environment } from '../environments/environment';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    AngularFireModule.initializeApp(environment.firebase)
+    AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
   providers: [],
   bootstrap: [AppComponent]

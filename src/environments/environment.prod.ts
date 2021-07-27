@@ -1,13 +1,11 @@
 export const environment = {
   production: true,
-  firebase: {
+  firebaseConfig: {
     apiKey: 'AIzaSyCV-zRIPwtlgQ5GqKYDb1R0wqGOBsGMw3c',
-    authDomain: 'kanban-board-1f692.web.app',
-    databaseURL: 'YOUR databaseURL HERE',
+    authDomain: 'kanban-board-1f692.firebaseapp.com',
     projectId: 'kanban-board-1f692',
-    storageBucket: 'YOUR storageBucket HERE',
-    messagingSenderId: 'YOUR messagingSenderId HERE',
+    storageBucket: 'kanban-board-1f692.appspot.com',
+    messagingSenderId: '536801946337',
     appId: '1:536801946337:web:38b55a8d7ee5aaa57b25a0',
-    measurementId: 'YOUR measurementId HERE',
   },
 };
